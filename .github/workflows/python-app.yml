@@ -32,9 +32,9 @@ jobs:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         bash setup_env.sh
-    - name: hero_writer
+    - name: news_writer
       run: |
-        python hero_writer.py
+        python news_writer.py
 
 
     - name: environment
@@ -46,12 +46,12 @@ jobs:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         bash setup_env.sh
-    - name: trend_writer
+    - name: sportsnews_writer
       run: |
-        python trend_writer.py
-    - name: cafe_writer
+        python sportsnews_writer.py
+    - name: house_news_writer
       run: |
-        python cafe_writer.py
+        python house_news_writer.py
     
 
     - name: environment
@@ -65,23 +65,23 @@ jobs:
         bash setup_env.sh
 
 
+    - name: trot
+      run: |
+        python trot_writer.py
+
+    - name: environment
+      env:
+        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
+        TI_SECRET: ${{ secrets.TI_SECRET }}
+        TI_CODE: ${{ secrets.TI_CODE }}
+        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        bash setup_env.sh
+
+    
     - name: today
       run: |
         python today.py
-
-    - name: environment
-      env:
-        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
-        TI_SECRET: ${{ secrets.TI_SECRET }}
-        TI_CODE: ${{ secrets.TI_CODE }}
-        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      run: |
-        bash setup_env.sh
-
-    
-    - name: stock_writer
-      run: |
-        python stock_writer.py
         
 
