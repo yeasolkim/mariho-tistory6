@@ -23,6 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         sudo apt install python3.11-distutils
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        nvm install 12
         
 
 
