@@ -138,7 +138,7 @@ def writer():
         full_content_truncated = truncate_text(full_content, max_tokens=3000)
 
         summary = summarizer.run(text=full_content_truncated)
-
+        record[i] = [0,0,0,0]
         record[i] = [s['title'],s['link'], content,summary]
                   
         i=i+1
