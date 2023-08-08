@@ -5,6 +5,7 @@ import asyncio
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timedelta
 from urllib.request import urlopen
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -21,8 +22,6 @@ import tiktoken
 import os
 import openai
 import random
-import time
-
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 #openai.api_key = os.environ["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"]
@@ -61,19 +60,21 @@ def clean_html(url):
             session.mount('http://', adapter)
             session.mount('https://', adapter)
 
-            response = session.get(url, verify=False)
+            response = session.get(url)
         # response = requests.get(url)
             # requests 오류 시 아래 urlopen 을 사용 하여 data 불러 오는데 끊김이 없도록 실행
         except:
-            time.sleep(5)
             page = urlopen(url)
             # bytes to string
             doc = page.read().decode('utf-8', 'ignore')
             # string to dictionary
             dic = json.loads(doc)
             result_dict = dic['result']['trades']
+
         else:
             break
+
+
     soup = BeautifulSoup(response.text, 'html.parser')
     text = ' '.join(soup.stripped_strings)
     return text
@@ -112,21 +113,15 @@ enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
 summarizer = build_summarizer(llm)
 
 
-###########################################################
-# Web
 
 
-
-nasa_url = "https://api.nasa.gov/planetary/apod?api_key=rP3Xf5YvfJhYXyRHGVPtQkyJvof3TbqbKiUuuWBd"
 def writer():
 
-    start_date = (datetime.now()).strftime('%Y-%m-%d')
-    star = random.choice(
-        ['오늘 부동산뉴스', '주요 분양소식', '주요 부동산뉴스', '최신 부동산 소식', '주요 실거래가', '최신 강남 부동산 소식', '최신 서초구 부동산 뉴스'
+    star = random.choice(['오늘 부동산뉴스', '주요 분양소식', '주요 부동산뉴스', '최신 부동산 소식', '주요 실거래가', '최신 강남 부동산 소식', '최신 서초구 부동산 뉴스'
 ,'주요 서울 부동산 뉴스', '주요 수도권 부동산 소식','성남 부동산 뉴스', '용인시 부동산 뉴스', '성남시 부동산 뉴스', '분당 부동산 소식', '수원시 부동산 소식'
-         , '일산 부동산 뉴스', '인천 부동산 뉴스', '하남 부동산 뉴스', '최근 아파트 실거래가', '최근 아파트 분양', '주요 아파트 분양소식'
-         ])
-    search_results = search.results(star, num_results=5)
+         , '일산 부동산 뉴스', '인천 부동산 뉴스', '하남 부동산 뉴스', '최근 아파트 실거래가', '최근 아파트 분양', '주요 아파트 분양소식'])
+
+    search_results = search.results(star, num_results=10)
     i = 0
     record = [[0 for j in range(1)] for t in range(10)]
     for s in search_results:
@@ -136,7 +131,7 @@ def writer():
         content = clean_html(s['link'])
         full_content = f"제목: {s['title']}\n발췌: {s['snippet']}\n전문: {content}"
 
-        full_content_truncated = truncate_text(full_content, max_tokens=3500)
+        full_content_truncated = truncate_text(full_content, max_tokens=3000)
 
         summary = summarizer.run(text=full_content_truncated)
 
@@ -151,12 +146,12 @@ def writer():
 
 
 
-    title2 = f"오늘의 뉴스! {star}심층분석 ({start_date})"
+    title2 = f"{star} ! 오늘은 무슨 일이!?"
 
     content2 = f'''
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br />
-<span style="font-family: 'Noto Serif KR';">안녕하세요, 오늘의 {star}는 어떤 것들이 있을까요?!<br/> 
-오늘의 HOT한 {star}만 정리했습니다<br />
+<span style="font-family: 'Noto Serif KR';">안녕하세요, 오늘은 {star}에 대해 어떤 기사들이 작성되었을까요?!<br/> 
+오늘의 HOT한 뉴스만 정리했습니다<br />
 링크도 있으니 함께 보시죠!</span></p>
 <p>&nbsp;</p>
 
@@ -186,7 +181,50 @@ def writer():
   <a href="{record[4]['url']}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[5]['title']} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[5]['summary']}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[5]['url']}">원본 LINK 바로가기</a></span></p>
+<p>&nbsp;</p>
 
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[6]['title']} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[6]['summary']}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ <a href="{record[6]['url']}">원본 LINK 바로가기</a></span></p>
+<p>&nbsp;</p>
+
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[7]['title']} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[7]['summary']}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[7]['url']}">원본 LINK 바로가기</a> </span></p>
+<p>&nbsp;</p>
+
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[8]['title']} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[8]['summary']}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[8]['url']}">원본 LINK 바로가기</a></span></p>
+<p>&nbsp;</p>
+
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[9]['title']} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[9]['summary']}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[9]['url']}">원본 LINK 바로가기</a></span></p>
+<p>&nbsp;</p>
 
 
 
@@ -204,8 +242,8 @@ if __name__ == "__main__":
 
     blog_write(
         blog_name="honeybutterinfo",
-        category_id="953967",
-        title="[뉴스/시사]"+title2,
+        category_id="953968",
+        title="[뉴스]"+title2,
         content=content2,
         tag=''
     )
