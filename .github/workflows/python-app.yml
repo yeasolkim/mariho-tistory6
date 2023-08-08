@@ -36,9 +36,9 @@ jobs:
       run: |
         bash setup_env.sh
   
-    - name: sportsnews_writer
+    - name: stock_writer
       run: |
-        python sportsnews_writer.py
+        python stock_writer.py
 
 
 
