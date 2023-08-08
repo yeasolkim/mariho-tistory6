@@ -39,19 +39,6 @@ jobs:
     - name: sportsnews_writer
       run: |
         python sportsnews_writer.py
-    - name: house_news_writer
-      run: |
-        python house_news_writer.py
-    
 
-    - name: environment
-      env:
-        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
-        TI_SECRET: ${{ secrets.TI_SECRET }}
-        TI_CODE: ${{ secrets.TI_CODE }}
-        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      run: |
-        bash setup_env.sh
 
 
