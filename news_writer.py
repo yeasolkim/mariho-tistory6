@@ -134,11 +134,7 @@ def writer():
 
         summary = summarizer.run(text=full_content_truncated)
 
-        record[i] = {"title": s['title'],
-                  "url": s['link'],
-                  "content": content,
-                  "summary": summary
-                  }
+        record[i] = [s['title'],s['link'],content,summary]
         i=i+1
 
 
@@ -156,73 +152,73 @@ def writer():
 
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[2]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[2][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[2]['summary']}  </span></p>
+ </br>{record[2][3]}  </span></p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[2]['url']}">원본 LINK 바로가기</a></span></p>
+  <a href="{record[2][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[3]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[3][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[3]['summary']}  </span></p>
+ </br>{record[3][3]}  </span></p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[3]['url']}">원본 LINK 바로가기</a></span></p>
+  <a href="{record[3][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[4]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[4][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[4]['summary']}  </span></p>
+ </br>{record[4][3]}  </span></p>
 <p>&nbsp;</p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[4]['url']}">원본 LINK 바로가기</a></span></p>
-<p>&nbsp;</p>
-
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[5]['title']} </b></span></h3>
-<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[5]['summary']}  </span></p>
-<p>&nbsp;</p>
-<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[5]['url']}">원본 LINK 바로가기</a></span></p>
+  <a href="{record[4][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[6]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[5][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[6]['summary']}  </span></p>
+ </br>{record[5][3]}  </span></p>
 <p>&nbsp;</p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- <a href="{record[6]['url']}">원본 LINK 바로가기</a></span></p>
-<p>&nbsp;</p>
-
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[7]['title']} </b></span></h3>
-<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[7]['summary']}  </span></p>
-<p>&nbsp;</p>
-<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[7]['url']}">원본 LINK 바로가기</a> </span></p>
+  <a href="{record[5][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[8]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[6][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[8]['summary']}  </span></p>
+ </br>{record[6][3]}  </span></p>
 <p>&nbsp;</p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[8]['url']}">원본 LINK 바로가기</a></span></p>
+ <a href="{record[6][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
-<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[9]['title']} </b></span></h3>
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[7][0]} </b></span></h3>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
- </br>{record[9]['summary']}  </span></p>
+ </br>{record[7][3]}  </span></p>
 <p>&nbsp;</p>
 <p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
-  <a href="{record[9]['url']}">원본 LINK 바로가기</a></span></p>
+  <a href="{record[7][1]}">원본 LINK 바로가기</a> </span></p>
+<p>&nbsp;</p>
+
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[8][0]} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[8][3]}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[8][1]}">원본 LINK 바로가기</a></span></p>
+<p>&nbsp;</p>
+
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style3" />
+<h3 style="text-align: center;" data-ke-size="size23"><br /><span style="font-family: 'Noto Serif KR';"><b>{record[9][0]} </b></span></h3>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+ </br>{record[9][3]}  </span></p>
+<p>&nbsp;</p>
+<p style="text-align: center;" data-ke-size="size16"><span style="font-family: 'Noto Serif KR';"> </span><br /><span style="font-family: 'Noto Serif KR';">
+  <a href="{record[9][1]}">원본 LINK 바로가기</a></span></p>
 <p>&nbsp;</p>
 
 
