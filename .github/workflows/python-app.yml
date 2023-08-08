@@ -35,35 +35,6 @@ jobs:
       run: |
         bash setup_env.sh
   
-    - name: trot
-      run: |
-        python trot_writer.py
-
-    - name: environment
-      env:
-        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
-        TI_SECRET: ${{ secrets.TI_SECRET }}
-        TI_CODE: ${{ secrets.TI_CODE }}
-        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      run: |
-        bash setup_env.sh
-
-    
-    - name: today
-      run: |
-        python today.py
-
-
-    - name: environment
-      env:
-        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
-        TI_SECRET: ${{ secrets.TI_SECRET }}
-        TI_CODE: ${{ secrets.TI_CODE }}
-        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      run: |
-        bash setup_env.sh
     - name: sportsnews_writer
       run: |
         python sportsnews_writer.py
